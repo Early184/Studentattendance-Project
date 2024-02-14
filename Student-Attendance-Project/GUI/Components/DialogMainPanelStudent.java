@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.RenderingHints.Key;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -33,7 +35,14 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     creationButtonPanel.saveButton.addActionListener(this);
     creationButtonPanel.deleteButton.addActionListener(this);
     creationButtonPanel.deleteButton.setVisible(true);
+   
+       
+        
+       
 
+    
+
+        
     TitleNamePanel titleCreateList = new TitleNamePanel("Studenten anlegen");
     JPanel northPanel = new JPanel();
     northPanel.setLayout(new GridLayout(2,1));
@@ -83,8 +92,9 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     showList.addKeyListener(new KeyListener() {
         @Override
         public void keyReleased(KeyEvent e){
-
+            
         }
+        @Override
         public void keyPressed(KeyEvent e){
             int key = e.getKeyCode();
             if(key == KeyEvent.VK_DELETE){
@@ -92,7 +102,22 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
                 database.showStudents().remove(showList.getSelectedIndex());
                 database.refreshModel(listModel, database);
             }
+            
+            if(key == KeyEvent.VK_ENTER){
+                String firstName1 = firstName.getText();
+                String lastName1= lastName.getText();
+            
+                database.addStudent(new Schueler(firstName1, lastName1));
+                    
+                listModel.clear();
+                for(Schueler Schueler : database.showStudents()){
+                        listModel.addElement(Schueler.getVorname()+ " "+ Schueler.getNachname());
+                };
+            }
+            
+            
         }
+        @Override
         public void keyTyped(KeyEvent e){
             
         }
