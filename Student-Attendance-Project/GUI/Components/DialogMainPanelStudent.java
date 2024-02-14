@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
@@ -78,6 +80,24 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     };
     JPanel listHolderPanel = new JPanel();
     showList = new JList<String>(listModel);
+    showList.addKeyListener(new KeyListener() {
+        @Override
+        public void keyReleased(KeyEvent e){
+
+        }
+        public void keyPressed(KeyEvent e){
+            int key = e.getKeyCode();
+            if(key == KeyEvent.VK_DELETE){
+                
+                database.showStudents().remove(showList.getSelectedIndex());
+                database.refreshModel(listModel, database);
+            }
+        }
+        public void keyTyped(KeyEvent e){
+            
+        }
+
+    });
     showList.setPreferredSize(new Dimension(400,350));
     showList.setBackground(Color.white);
    

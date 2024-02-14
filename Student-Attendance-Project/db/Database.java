@@ -93,8 +93,9 @@ public class Database {
     public void addStudent(Schueler schueler){
         schuelerArray.add(schueler);
     }
-    public void deleteStudent(Schueler schueler){
-        schuelerArray.remove(schueler);
+    public void deleteStudent(int index){
+        schuelerArray.remove(index);
+        
     }
     public void refreshModel(DefaultListModel listModel, Database database){
         listModel.clear();
