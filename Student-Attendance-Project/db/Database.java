@@ -16,6 +16,7 @@ public class Database {
     private ArrayList<Schueler> schuelerArray = new ArrayList<Schueler>();
     private ArrayList<Schueler> klassenArray = new ArrayList<Schueler>();
     private ArrayList<ArrayList <Schueler>> klassenListeArray = new ArrayList<ArrayList <Schueler>>();
+    private String studentFile = "Student-Attendance-Project/db/Students.csv";
     private Database(){
 
     }
@@ -26,8 +27,19 @@ public class Database {
         return instance;
     }
     public void readStudents(){
+        String line = "";
         try{
-            BufferedReader studentReader = new BufferedReader(new FileReader("Students.csv"));
+            BufferedReader studentReader = new BufferedReader(new FileReader(studentFile));
+            while((line = studentReader.readLine()) != null){
+                String[] splittedName = line.split(";");
+                if(splittedName.length == 2){
+                    String vorname = splittedName[0].trim();
+                    String nachname = splittedName[1].trim();
+                    schuelerArray.add(new Schueler(vorname, nachname));
+                } else{
+                    System.out.println("Fehlerhaftes Format");
+                }
+            }
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -36,7 +48,7 @@ public class Database {
     public void writeStudents(){
         
         try{
-            FileWriter fileWriter = new FileWriter("db/Students.csv");
+            FileWriter fileWriter = new FileWriter(studentFile);
             for(Schueler schueler: schuelerArray){
                 fileWriter.write(schueler.getVorname()+";"+ schueler.getNachname()+";\r");
             }

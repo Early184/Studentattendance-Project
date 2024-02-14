@@ -15,6 +15,7 @@ public class MainFrame extends JFrame {
     private Database database;
     public MainFrame() {
         this.database = Database.getInstance();
+        database.readStudents();
         setTitle("Attendance-Check");
         setSize(1200, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
