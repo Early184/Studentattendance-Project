@@ -12,9 +12,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 import javax.swing.JTextField;
 
 import Models.Schueler;
@@ -29,19 +31,18 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     private DefaultListModel<String> listModel;
     private JList<String> showList;
     public CreationButtonPanel creationButtonPanel;
+    
     public DialogMainPanelStudent(){
         //Top panel no extra class
     creationButtonPanel = new CreationButtonPanel("saveStudent");
     creationButtonPanel.saveButton.addActionListener(this);
-    creationButtonPanel.deleteButton.addActionListener(this);
-    creationButtonPanel.deleteButton.setVisible(true);
-   
-       
-        
-       
 
     
 
+
+    creationButtonPanel.deleteButton.addActionListener(this);
+    creationButtonPanel.deleteButton.setVisible(true);
+   
         
     TitleNamePanel titleCreateList = new TitleNamePanel("Studenten anlegen");
     JPanel northPanel = new JPanel();
@@ -49,6 +50,36 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     northPanel.add(titleCreateList);
     northPanel.add(creationButtonPanel);
     
+    
+    
+    KeyListener enterSave = new KeyListener() {
+        @Override
+        public void keyReleased(KeyEvent e){
+            
+        }
+        @Override
+        public void keyPressed(KeyEvent e){
+            int key = e.getKeyCode();
+
+            if(key == KeyEvent.VK_ENTER){
+                String firstName1 = firstName.getText();
+                String lastName1= lastName.getText();
+                System.out.println("Hallo");
+                database.addStudent(new Schueler(firstName1, lastName1));
+                    
+                listModel.clear();
+                for(Schueler Schueler : database.showStudents()){
+                        listModel.addElement(Schueler.getVorname()+ " "+ Schueler.getNachname());
+                };
+            }
+        }
+        @Override
+        public void keyTyped(KeyEvent e){
+            
+        }
+
+    };
+    //nicht funktionell
     
     setLayout(new BorderLayout());
     add(northPanel ,BorderLayout.NORTH);
@@ -62,7 +93,9 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     //firstNamePanel
     JLabel firstNameLabel = new JLabel("Vorname:      ");
     firstName = new JTextField();
+    firstName.addKeyListener(enterSave);
     firstName.setPreferredSize(new Dimension(120, 25));
+    
     JPanel firstNamePanel = new JPanel();
     firstNameLabel.setLayout(new FlowLayout());
     firstNamePanel.add(firstNameLabel);
@@ -72,12 +105,14 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     //lastNamePanel
     JLabel lastNameLabel = new JLabel("Nachname:   ");
     lastName = new JTextField();
+    lastName.addKeyListener(enterSave);
     lastName.setPreferredSize(new Dimension(120, 25));
     JPanel lastNamePanel = new JPanel();
     lastNamePanel.setLayout(new FlowLayout());
     lastNamePanel.add(lastNameLabel);
     lastNamePanel.add(lastName);
     //Hier das selbe
+    
     centerPanel.add(firstNamePanel, BorderLayout.NORTH);
     centerPanel.add(lastNamePanel, BorderLayout.SOUTH);
     add(centerPanel, BorderLayout.CENTER);
@@ -103,10 +138,11 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
                 database.refreshModel(listModel, database);
             }
             
+
             if(key == KeyEvent.VK_ENTER){
                 String firstName1 = firstName.getText();
                 String lastName1= lastName.getText();
-            
+                System.out.println("Hallo");
                 database.addStudent(new Schueler(firstName1, lastName1));
                     
                 listModel.clear();
@@ -114,8 +150,6 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
                         listModel.addElement(Schueler.getVorname()+ " "+ Schueler.getNachname());
                 };
             }
-            
-            
         }
         @Override
         public void keyTyped(KeyEvent e){
@@ -123,6 +157,7 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
         }
 
     });
+ 
     showList.setPreferredSize(new Dimension(400,350));
     showList.setBackground(Color.white);
    

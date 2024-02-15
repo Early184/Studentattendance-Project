@@ -3,7 +3,7 @@ package GUI.Components;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.JList;
+
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -18,6 +18,8 @@ public class DialogListFields extends JPanel {
         testField.setPreferredSize(new Dimension(400,350));
         add(testField, BorderLayout.NORTH);
         
+        
+
         setVisible(true);
     }
 }
