@@ -20,7 +20,7 @@ public class MainFrame extends JFrame {
         setSize(1200, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        
+        setResizable(false);
 
         mainPanel mainPanel = new mainPanel(this);
         add(mainPanel);
@@ -51,7 +51,7 @@ public class MainFrame extends JFrame {
     }
     public void createListDialog(){
         ListCreationDialog studentListCr = new ListCreationDialog(this);
-        DialogMainPanelList dialogPanelClass = new DialogMainPanelList();
+        DialogMainPanelClass dialogPanelClass = new DialogMainPanelClass();
         studentListCr.add(dialogPanelClass);
         
         studentListCr.setVisible(true);

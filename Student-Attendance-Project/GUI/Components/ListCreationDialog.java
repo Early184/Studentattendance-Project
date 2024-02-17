@@ -11,6 +11,7 @@ public class ListCreationDialog extends JDialog{
         
         setSize(800,600);
         setLocationRelativeTo(frame);
+        setResizable(false);
         setModal(true);
        
         
