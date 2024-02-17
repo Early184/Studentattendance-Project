@@ -9,11 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import Models.Schueler;
 import db.Database;
@@ -23,25 +19,30 @@ import db.Database;
 public class DialogMainPanelStudent extends JPanel implements ActionListener{
     public JTextField firstName;
     public JTextField lastName;
+<<<<<<< HEAD
     private Database database;
     private DefaultListModel<String> listModel;
     private JList<String> showList;
+=======
+    private final Database database = Database.getInstance();
+    private final DefaultListModel<String> listModel;
+    private final JList<String> showList;
+>>>>>>> origin/main
     public CreationButtonPanel creationButtonPanel;
+    
     public DialogMainPanelStudent(){
         //Top panel no extra class
     this.database = Database.getInstance();
 
     creationButtonPanel = new CreationButtonPanel("saveStudent");
     creationButtonPanel.saveButton.addActionListener(this);
-    creationButtonPanel.deleteButton.addActionListener(this);
-    creationButtonPanel.deleteButton.setVisible(true);
-   
-       
-        
-       
 
     
 
+
+    creationButtonPanel.deleteButton.addActionListener(this);
+    creationButtonPanel.deleteButton.setVisible(true);
+   
         
     TitleNamePanel titleCreateList = new TitleNamePanel("Studenten anlegen");
     JPanel northPanel = new JPanel();
@@ -49,6 +50,46 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     northPanel.add(titleCreateList);
     northPanel.add(creationButtonPanel);
     
+    
+    
+    KeyListener enterSave = new KeyListener() {
+        @Override
+        public void keyReleased(KeyEvent e){
+            
+        }
+        @Override
+        public void keyPressed(KeyEvent e) {
+            int key = e.getKeyCode();
+
+            if (key == KeyEvent.VK_ENTER) {
+                String firstName1 = firstName.getText().trim();
+                String lastName1 = lastName.getText().trim();
+
+                // Abfrage Blank / Whitespace / Number
+                if (firstName1.isBlank() || lastName1.isBlank()) {
+                    JOptionPane.showMessageDialog(null, "Error: Please enter a first AND a last name", " ", JOptionPane.INFORMATION_MESSAGE);
+
+                } else if (containsSpaceOrNumbers(firstName1) || containsSpaceOrNumbers(lastName1)){
+                    JOptionPane.showMessageDialog(null, "No spaces, numbers or special characters allowed", " ", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+                else {
+                    database.addStudent(new Schueler(firstName1, lastName1));
+
+                    listModel.clear();
+                    for (Schueler schueler : database.showStudents()) {
+                        listModel.addElement(schueler.getVorname() + " " + schueler.getNachname());
+                    }
+                }
+            }
+        }
+        @Override
+        public void keyTyped(KeyEvent e){
+            
+        }
+
+    };
+    //nicht funktionell
     
     setLayout(new BorderLayout());
     add(northPanel ,BorderLayout.NORTH);
@@ -62,7 +103,9 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     //firstNamePanel
     JLabel firstNameLabel = new JLabel("Vorname:      ");
     firstName = new JTextField();
+    firstName.addKeyListener(enterSave);
     firstName.setPreferredSize(new Dimension(120, 25));
+    
     JPanel firstNamePanel = new JPanel();
     firstNameLabel.setLayout(new FlowLayout());
     firstNamePanel.add(firstNameLabel);
@@ -72,12 +115,14 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     //lastNamePanel
     JLabel lastNameLabel = new JLabel("Nachname:   ");
     lastName = new JTextField();
+    lastName.addKeyListener(enterSave);
     lastName.setPreferredSize(new Dimension(120, 25));
     JPanel lastNamePanel = new JPanel();
     lastNamePanel.setLayout(new FlowLayout());
     lastNamePanel.add(lastNameLabel);
     lastNamePanel.add(lastName);
     //Hier das selbe
+    
     centerPanel.add(firstNamePanel, BorderLayout.NORTH);
     centerPanel.add(lastNamePanel, BorderLayout.SOUTH);
     add(centerPanel, BorderLayout.CENTER);
@@ -86,8 +131,8 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     listModel = new DefaultListModel<String>();
     for(Schueler Schueler : database.showStudents()){
         listModel.addElement(Schueler.getVorname()+ " "+ Schueler.getNachname());
-    };
-    JPanel listHolderPanel = new JPanel();
+    }
+        JPanel listHolderPanel = new JPanel();
     showList = new JList<String>(listModel);
     showList.addKeyListener(new KeyListener() {
         @Override
@@ -102,20 +147,6 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
                 database.showStudents().remove(showList.getSelectedIndex());
                 database.refreshModel(listModel, database);
             }
-            
-            if(key == KeyEvent.VK_ENTER){
-                String firstName1 = firstName.getText();
-                String lastName1= lastName.getText();
-            
-                database.addStudent(new Schueler(firstName1, lastName1));
-                    
-                listModel.clear();
-                for(Schueler Schueler : database.showStudents()){
-                        listModel.addElement(Schueler.getVorname()+ " "+ Schueler.getNachname());
-                };
-            }
-            
-            
         }
         @Override
         public void keyTyped(KeyEvent e){
@@ -123,6 +154,7 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
         }
 
     });
+ 
     showList.setPreferredSize(new Dimension(400,350));
     showList.setBackground(Color.white);
    
@@ -136,6 +168,15 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     setVisible(true);
 
     }
+    //Boolean checking for WhiteSpace or Numbers
+    private boolean containsSpaceOrNumbers(String str) {
+        for (char c : str.trim().toCharArray()) {
+            if (Character.isWhitespace(c) || Character.isDigit(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         String userchoice = e.getActionCommand();
@@ -144,13 +185,25 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
             case "saveStudent":
                 String firstName1 = firstName.getText();
                 String lastName1= lastName.getText();
-        
-                database.addStudent(new Schueler(firstName1, lastName1));
-                
-                listModel.clear();
-                for(Schueler Schueler : database.showStudents()){
-                    listModel.addElement(Schueler.getVorname()+ " "+ Schueler.getNachname());
-                };
+
+                //Abfrage Blank / WhiteSpace / Numbers
+                if (firstName1.isBlank() || lastName1.isBlank()) {
+                    JOptionPane.showMessageDialog(null, "Error: Please enter a first AND a last name", " ", JOptionPane.INFORMATION_MESSAGE);
+
+                } else if (containsSpaceOrNumbers(firstName1) || containsSpaceOrNumbers(lastName1)){
+                    JOptionPane.showMessageDialog(null, "No spaces, numbers or special characters allowed", " ", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+                else {
+                    database.addStudent(new Schueler(firstName1, lastName1));
+
+                    listModel.clear();
+                    for (Schueler schueler : database.showStudents()) {
+                        listModel.addElement(schueler.getVorname() + " " + schueler.getNachname());
+                    }
+                }
+
+
                 
 
                 break;
