@@ -19,15 +19,11 @@ import db.Database;
 public class DialogMainPanelStudent extends JPanel implements ActionListener{
     public JTextField firstName;
     public JTextField lastName;
-<<<<<<< HEAD
     private Database database;
     private DefaultListModel<String> listModel;
     private JList<String> showList;
-=======
-    private final Database database = Database.getInstance();
-    private final DefaultListModel<String> listModel;
-    private final JList<String> showList;
->>>>>>> origin/main
+
+
     public CreationButtonPanel creationButtonPanel;
     
     public DialogMainPanelStudent(){
