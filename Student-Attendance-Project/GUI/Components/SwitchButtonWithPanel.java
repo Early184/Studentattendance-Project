@@ -1,32 +1,56 @@
 package GUI.Components;
 
 
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.BorderLayout;
+
+
 import java.awt.Image;
+
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class SwitchButtonWithPanel extends JPanel{
+
+
+
+public class SwitchButtonWithPanel extends JPanel {
+    
+    ImageIcon scaledImage;
+    JButton switchButton;
+    ImageIcon scaledImageHover;
+    ImageIcon scaledImagePressed;
+
     public SwitchButtonWithPanel(){
-        setPreferredSize(new Dimension(200, 390));
-        ImageIcon switchImage = new ImageIcon("Student-Attendance-Project/GUI/Images/doppelPfeil.png");
-        ImageIcon scaledImage = imageScaler(switchImage, 140, 100);
         
-        JButton switchButton = new JButton();
+        
+        
+        scaledImage = imageScaler(new ImageIcon("Student-Attendance-Project/GUI/Images/ButtonSwitch.png"), 140, 100);
+        scaledImageHover = imageScaler(new ImageIcon("Student-Attendance-Project/GUI/Images/ButtonHovered.png"),140, 100);
+        scaledImagePressed = imageScaler(new ImageIcon("Student-Attendance-Project/GUI/Images/ButtonPressed.png"),140, 100);
+        
+        
+        switchButton = new JButton();
         switchButton.setIcon(scaledImage);
         switchButton.setBorderPainted(false);
         switchButton.setFocusPainted(false);
         switchButton.setContentAreaFilled(false);
+        switchButton.addMouseListener(switchButtonAdapter);
+        
+        switchButton.setActionCommand("switch");
+        
         //place Button in the middle
-        int x = (getWidth() - switchButton.getWidth()) / 2;
-        int y = (getHeight() - switchButton.getHeight()) /2;
-        switchButton.setLocation(x, y);
+        //int x = (getWidth() - switchButton.getWidth()) / 2;
+        //int y = (getHeight() - switchButton.getHeight()) /2;
+        
        
         
         add(switchButton);
+        //switchButton.setLocation(x, y);
     }
     public ImageIcon imageScaler(ImageIcon image, int width, int height){
         Image originalImage = image.getImage();
@@ -38,7 +62,30 @@ public class SwitchButtonWithPanel extends JPanel{
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         return scaledIcon;
     }
-    public void buttonLocation(JButton button){
-        
-    }
+    
+    MouseAdapter switchButtonAdapter = new MouseAdapter() {
+        @Override
+            public void mousePressed(MouseEvent e){
+                switchButton.setIcon(scaledImagePressed);
+            };
+
+        @Override
+            public void mouseReleased(MouseEvent e){
+                switchButton.setIcon(scaledImageHover);
+            };
+
+           
+        @Override
+            public void mouseEntered(MouseEvent e){
+                switchButton.setIcon(scaledImageHover);
+            };
+
+        @Override
+            public void mouseExited(MouseEvent e){
+                switchButton.setIcon(scaledImage);
+            };
+    };
+
+    
+
 }

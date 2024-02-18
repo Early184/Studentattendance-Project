@@ -1,7 +1,6 @@
 package GUI.Components;
 
 import javax.swing.JDialog;
-import javax.swing.JTextField;
 
 public class ListCreationDialog extends JDialog{
     private MainFrame frame;

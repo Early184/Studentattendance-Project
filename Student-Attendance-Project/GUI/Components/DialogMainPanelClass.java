@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -19,7 +21,7 @@ import Models.Schueler;
 import db.Database;
 
 
-public class DialogMainPanelClass extends JPanel {
+public class DialogMainPanelClass extends JPanel implements ActionListener{
     public JTextField grade;
     public JTextField specialization;
     private Database database;
@@ -87,11 +89,13 @@ public class DialogMainPanelClass extends JPanel {
 
         mainListHolderPanel.setLayout(new BorderLayout());
         
+        
         studentListHolderPanel.add(createStudentList());
         selectedStudents.add(createClassList());
         
         //Button with Icon
         SwitchButtonWithPanel switchPanel = new SwitchButtonWithPanel();
+        switchPanel.switchButton.addActionListener(this);
 
         mainListHolderPanel.add(switchPanel, BorderLayout.CENTER);
         mainListHolderPanel.add(studentListHolderPanel, BorderLayout.WEST);
@@ -122,8 +126,44 @@ public class DialogMainPanelClass extends JPanel {
         return classList;
     }
     public void addStudentToClass(){
-        String[] studentName = classList.getSelectedValue().split(" ");
+    
+        String[] studentName = listOfStudents.getSelectedValue().split(" ");
         database.addStudentToClassArray(new Schueler(studentName[0], studentName[1]));
+        listModelStudents.remove(listOfStudents.getSelectedIndex());
+    }
+    //funktioniert noch nicht
+    public void returnStudentToList(){
+        String[] studentName = classList.getSelectedValue().split("");
+        database.deleteStudentFromClass(classList.getSelectedIndex());
+        database.showClassArray().remove(listOfStudents.getSelectedIndex());
+        //classList.remove(listOfStudents.getSelectedIndex());
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String userSwitchStudent = e.getActionCommand();
+        switch (userSwitchStudent) {
+            case "switch":
+                //studentToClass
+                if (listOfStudents.getSelectedIndex() != -1 && classList.getSelectedIndex() == -1){
+                    addStudentToClass();
+                    database.refreshModel(listModelClass, database.showClassArray());
+                    //database.refreshModel(listModelStudents, database.showStudents());
+                    
+                }
+                //StudentBackToStudentList
+                if(listOfStudents.getSelectedIndex() == -1 && classList.getSelectedIndex() != -1 ){
+                    returnStudentToList();
+                    database.refreshModel(listModelClass, database.showClassArray());
+                    database.refreshModel(listModelStudents, database.showStudents());
+                }
+                break;
+                
+                    default:
+                        break;
+            }
+        
+        
+       
     }
    
 }

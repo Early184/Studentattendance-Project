@@ -28,7 +28,7 @@ public class MainFrame extends JFrame {
     }
     
     public void listOrStudent(){
-        Object [] options = {"List", "Student"};
+        Object [] options = {" Klasse ", " Student "};
         String message = "Bitte wählen sie eine Option.";
 
         int answer = JOptionPane.showOptionDialog(this, message, "Auswahl", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
@@ -55,6 +55,8 @@ public class MainFrame extends JFrame {
         studentListCr.add(dialogPanelClass);
         
         studentListCr.setVisible(true);
+        //Saving functions here
+        //dispose function for list model
     }
     public void createStudentDialog(){
         ListCreationDialog studentCreation = new ListCreationDialog(this);

@@ -33,9 +33,6 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     creationButtonPanel = new CreationButtonPanel("saveStudent");
     creationButtonPanel.saveButton.addActionListener(this);
 
-    
-
-
     creationButtonPanel.deleteButton.addActionListener(this);
     creationButtonPanel.deleteButton.setVisible(true);
    
@@ -141,7 +138,7 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
             if(key == KeyEvent.VK_DELETE){
                 
                 database.showStudents().remove(showList.getSelectedIndex());
-                database.refreshModel(listModel, database);
+                database.refreshModel(listModel, database.showStudents());
             }
         }
         @Override
@@ -210,7 +207,7 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
                     
                 }
                 
-                database.refreshModel(listModel, database);
+                database.refreshModel(listModel, database.showStudents());
                 break;
             case "close":
                 

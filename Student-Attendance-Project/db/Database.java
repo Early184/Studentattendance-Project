@@ -40,6 +40,7 @@ public class Database {
                     System.out.println("Fehlerhaftes Format");
                 }
             }
+            studentReader.close();
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -99,13 +100,17 @@ public class Database {
     public void addStudentToClassArray(Schueler schueler){
         klassenArray.add(schueler);
     }
-    public void deleteStudent(int index){
+
+    public void deleteStudentFromStudentArray(int index){
         schuelerArray.remove(index);
         
     }
-    public void refreshModel(DefaultListModel listModel, Database database){
+    public void deleteStudentFromClass(int index){
+        klassenArray.remove(index);
+    }
+    public void refreshModel(DefaultListModel<String> listModel, ArrayList<Schueler> updateArrayList){
         listModel.clear();
-        for(Schueler Schueler : database.showStudents()){
+        for(Schueler Schueler : updateArrayList){
                 listModel.addElement(Schueler.getVorname()+ " "+ Schueler.getNachname());
         };
     }
