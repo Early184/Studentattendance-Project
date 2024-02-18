@@ -90,8 +90,14 @@ public class Database {
     public ArrayList<Schueler> showStudents(){
         return schuelerArray;
     }
-    public void addStudent(Schueler schueler){
+    public ArrayList<Schueler> showClassArray(){
+        return klassenArray;
+    }
+    public void addStudentToStudentArray(Schueler schueler){
         schuelerArray.add(schueler);
+    }
+    public void addStudentToClassArray(Schueler schueler){
+        klassenArray.add(schueler);
     }
     public void deleteStudent(int index){
         schuelerArray.remove(index);

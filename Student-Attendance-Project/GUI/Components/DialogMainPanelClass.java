@@ -5,8 +5,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -20,8 +23,8 @@ public class DialogMainPanelClass extends JPanel {
     public JTextField grade;
     public JTextField specialization;
     private Database database;
-    private DefaultListModel<String> listModelStudents;
-    private JList<String> listOfStudents;
+    private DefaultListModel<String> listModelStudents, listModelClass;
+    private JList<String> listOfStudents, classList;
     public DialogMainPanelClass(){
         this.database = Database.getInstance();
         //Top panel no extra class
@@ -70,26 +73,57 @@ public class DialogMainPanelClass extends JPanel {
         add(listField, BorderLayout.SOUTH);*/
         
         // Student Lists BorderLayout South
+        
         JPanel mainListHolderPanel = new JPanel();
         mainListHolderPanel.setPreferredSize(new Dimension(400, 390));
+
         JPanel studentListHolderPanel = new JPanel();
         studentListHolderPanel.setBackground(Color.black);
+        studentListHolderPanel.setPreferredSize(new Dimension(300, 0));
+
         JPanel selectedStudents = new JPanel();
         selectedStudents.setBackground(Color.gray);
-        mainListHolderPanel.setLayout(new GridLayout(1, 2));
-        listModelStudents = new DefaultListModel<String>();
-        for(Schueler Schueler : database.showStudents()){
-        listModelStudents.addElement(Schueler.getVorname()+ " "+ Schueler.getNachname());
-        };
+        selectedStudents.setPreferredSize(new Dimension(300, 0));
+
+        mainListHolderPanel.setLayout(new BorderLayout());
         
-        listOfStudents = new JList<String>(listModelStudents);
-        studentListHolderPanel.add(listOfStudents);
-        mainListHolderPanel.add(studentListHolderPanel);
-        mainListHolderPanel.add(selectedStudents);
+        studentListHolderPanel.add(createStudentList());
+        selectedStudents.add(createClassList());
+        
+        //Button with Icon
+        SwitchButtonWithPanel switchPanel = new SwitchButtonWithPanel();
+
+        mainListHolderPanel.add(switchPanel, BorderLayout.CENTER);
+        mainListHolderPanel.add(studentListHolderPanel, BorderLayout.WEST);
+        mainListHolderPanel.add(selectedStudents, BorderLayout.EAST);
         add(mainListHolderPanel, BorderLayout.SOUTH);
 
 
+
         setVisible(true);
+    }
+    public JList<String> createStudentList(){
+        listModelStudents = new DefaultListModel<String>();
+        
+        for(Schueler Schueler : database.showStudents()){
+        listModelStudents.addElement(Schueler.getVorname()+ " "+ Schueler.getNachname());
+        };
+
+        listOfStudents = new JList<String>(listModelStudents);
+        return listOfStudents;
+    }
+    public JList<String> createClassList(){
+        listModelClass = new DefaultListModel<>();
+
+        for(Schueler Schueler : database.showClassArray()){
+            listModelClass.addElement(Schueler.getVorname() + " " + Schueler.getNachname());
+        }
+        classList = new JList<String>(listModelClass);
+        return classList;
+    }
+    public void addStudentToClass(){
+        String[] studentName = classList.getSelectedValue().split(" ");
+        database.addStudentToClassArray(new Schueler(studentName[0], studentName[1]));
     }
    
 }

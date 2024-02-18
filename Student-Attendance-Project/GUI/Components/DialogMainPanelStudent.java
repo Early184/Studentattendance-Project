@@ -70,7 +70,7 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
                 }
 
                 else {
-                    database.addStudent(new Schueler(firstName1, lastName1));
+                    database.addStudentToStudentArray(new Schueler(firstName1, lastName1));
 
                     listModel.clear();
                     for (Schueler schueler : database.showStudents()) {
@@ -191,7 +191,7 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
                 }
 
                 else {
-                    database.addStudent(new Schueler(firstName1, lastName1));
+                    database.addStudentToStudentArray(new Schueler(firstName1, lastName1));
 
                     listModel.clear();
                     for (Schueler schueler : database.showStudents()) {
