@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 
+import Models.ClassList;
 import Models.Schueler;
 
 public class Database {
@@ -15,8 +16,15 @@ public class Database {
     
     private ArrayList<Schueler> schuelerArray = new ArrayList<Schueler>();
     private ArrayList<Schueler> klassenArray = new ArrayList<Schueler>();
-    private ArrayList<ArrayList <Schueler>> klassenListeArray = new ArrayList<ArrayList <Schueler>>();
+    private ArrayList<ClassList> classListsArray = new ArrayList<ClassList>();
+    public ArrayList<ClassList> getClassListsArray() {
+        return classListsArray;
+    }
+    public void setClassListsArray(ArrayList<ClassList> classListsArray) {
+        this.classListsArray = classListsArray;
+    }
     private String studentFile = "Student-Attendance-Project/db/Students.csv";
+    private String classesFile = "Student-Attendance-Project/db/ListOfStudents.csv";
     private Database(){
 
     }
@@ -50,6 +58,7 @@ public class Database {
         
         try{
             FileWriter fileWriter = new FileWriter(studentFile);
+            
             for(Schueler schueler: schuelerArray){
                 fileWriter.write(schueler.getVorname()+";"+ schueler.getNachname()+";\r");
             }
@@ -60,16 +69,17 @@ public class Database {
         }
     }
    
-    public void readClasses(){
+    public void readClass(){
         try{
             BufferedReader classReader = new BufferedReader(new FileReader("Classes.csv"));
         }catch(IOException e){
             e.printStackTrace();
         }
     }
-    public void writeClasses(){
+    public void writeClass(){
         try{
-            FileWriter classWriter = new FileWriter("Classes.csv");
+            FileWriter classWriter = new FileWriter(classesFile);
+
         }catch(IOException e){
             
         }
@@ -102,7 +112,7 @@ public class Database {
     }
 
     public void deleteStudentFromStudentArray(int index){
-        schuelerArray.remove(index);
+        klassenArray.remove(index);
         
     }
     public void deleteStudentFromClass(int index){

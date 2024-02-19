@@ -17,6 +17,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Models.ClassList;
 import Models.Schueler;
 import db.Database;
 
@@ -27,10 +28,13 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
     private Database database;
     private DefaultListModel<String> listModelStudents, listModelClass;
     private JList<String> listOfStudents, classList;
+    private JLabel gradeLabel, specLabel;
     public DialogMainPanelClass(){
         this.database = Database.getInstance();
         //Top panel no extra class
-        CreationButtonPanel creationButtonPanel = new CreationButtonPanel("Platzhalter");
+        CreationButtonPanel creationButtonPanel = new CreationButtonPanel("save1");
+        creationButtonPanel.saveButton.addActionListener(this);
+        
         TitleNamePanel titleCreateList = new TitleNamePanel("Liste erstellen");
         JPanel northPanel = new JPanel();
         northPanel.setLayout(new GridLayout(2,1));
@@ -47,7 +51,7 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
         centerPanel.setLayout(new BorderLayout());
         
         //gradePanel
-        JLabel gradeLabel = new JLabel("Jahrgang:      ");
+        gradeLabel = new JLabel("Jahrgang:      ");
         grade = new JTextField();
         grade.setPreferredSize(new Dimension(120, 25));
         JPanel gradePanel = new JPanel();
@@ -57,7 +61,7 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
         //grade.getText();  um String wert zu entziehen
         
         //specializationPanel
-        JLabel specLabel = new JLabel("Fachbereich: ");
+        specLabel = new JLabel("Fachbereich: ");
         specialization = new JTextField();
         specialization.setPreferredSize(new Dimension(120, 25));
         JPanel specPanel = new JPanel();
@@ -118,7 +122,7 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
     }
     public JList<String> createClassList(){
         listModelClass = new DefaultListModel<>();
-
+        
         for(Schueler Schueler : database.showClassArray()){
             listModelClass.addElement(Schueler.getVorname() + " " + Schueler.getNachname());
         }
@@ -129,14 +133,25 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
     
         String[] studentName = listOfStudents.getSelectedValue().split(" ");
         database.addStudentToClassArray(new Schueler(studentName[0], studentName[1]));
-        listModelStudents.remove(listOfStudents.getSelectedIndex());
+        database.showStudents().remove(listOfStudents.getSelectedIndex());
+        //listModelStudents.remove(listOfStudents.getSelectedIndex());
     }
     //funktioniert noch nicht
     public void returnStudentToList(){
-        String[] studentName = classList.getSelectedValue().split("");
-        database.deleteStudentFromClass(classList.getSelectedIndex());
-        database.showClassArray().remove(listOfStudents.getSelectedIndex());
+        String[] studentName = classList.getSelectedValue().split(" ");
+        database.addStudentToStudentArray(new Schueler(studentName[0],studentName[1]));
+        //database.deleteStudentFromClass(classList.getSelectedIndex());
+        database.showClassArray().remove(classList.getSelectedIndex());
         //classList.remove(listOfStudents.getSelectedIndex());
+    }
+    public void clearListsAfterSafe(){
+        for(Schueler schueler : database.showClassArray()){
+            database.addStudentToStudentArray(schueler);
+        }
+        database.showClassArray().clear();
+
+        database.refreshModel(listModelClass, database.showClassArray());
+        database.refreshModel(listModelStudents, database.showStudents());
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -147,7 +162,7 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
                 if (listOfStudents.getSelectedIndex() != -1 && classList.getSelectedIndex() == -1){
                     addStudentToClass();
                     database.refreshModel(listModelClass, database.showClassArray());
-                    //database.refreshModel(listModelStudents, database.showStudents());
+                    database.refreshModel(listModelStudents, database.showStudents());
                     
                 }
                 //StudentBackToStudentList
@@ -157,9 +172,15 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
                     database.refreshModel(listModelStudents, database.showStudents());
                 }
                 break;
-                
-                    default:
-                        break;
+            case "save1" :
+                ClassList classList = new ClassList(gradeLabel.getText(), specLabel.getText(), database.showClassArray());
+                database.getClassListsArray().add(classList);
+                clearListsAfterSafe();
+                grade.setText("");
+                specialization.setText("");
+                break;
+            default:
+                break;
             }
         
         

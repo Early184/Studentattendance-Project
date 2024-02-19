@@ -55,6 +55,7 @@ public class MainFrame extends JFrame {
         studentListCr.add(dialogPanelClass);
         
         studentListCr.setVisible(true);
+        database.showClassArray().clear();
         //Saving functions here
         //dispose function for list model
     }
