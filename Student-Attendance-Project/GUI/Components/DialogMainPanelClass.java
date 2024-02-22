@@ -150,8 +150,8 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
         }
         database.showClassArray().clear();
 
-        database.refreshModel(listModelClass, database.showClassArray());
-        database.refreshModel(listModelStudents, database.showStudents());
+        database.refreshModelForStudents(listModelClass, database.showClassArray());
+        database.refreshModelForStudents(listModelStudents, database.showStudents());
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -161,23 +161,25 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
                 //studentToClass
                 if (listOfStudents.getSelectedIndex() != -1 && classList.getSelectedIndex() == -1){
                     addStudentToClass();
-                    database.refreshModel(listModelClass, database.showClassArray());
-                    database.refreshModel(listModelStudents, database.showStudents());
+                    database.refreshModelForStudents(listModelClass, database.showClassArray());
+                    database.refreshModelForStudents(listModelStudents, database.showStudents());
                     
                 }
                 //StudentBackToStudentList
                 if(listOfStudents.getSelectedIndex() == -1 && classList.getSelectedIndex() != -1 ){
                     returnStudentToList();
-                    database.refreshModel(listModelClass, database.showClassArray());
-                    database.refreshModel(listModelStudents, database.showStudents());
+                    database.refreshModelForStudents(listModelClass, database.showClassArray());
+                    database.refreshModelForStudents(listModelStudents, database.showStudents());
                 }
                 break;
             case "save1" :
-                ClassList classList = new ClassList(gradeLabel.getText(), specLabel.getText(), database.showClassArray());
+                ClassList classList = new ClassList(grade.getText(), specialization.getText(), database.showClassArray());
                 database.getClassListsArray().add(classList);
+                database.writeListOfClasses();
                 clearListsAfterSafe();
                 grade.setText("");
                 specialization.setText("");
+                database.refreshModelForClassLists(database.getListModelOfClasses(), database.getClassListsArray());
                 break;
             default:
                 break;

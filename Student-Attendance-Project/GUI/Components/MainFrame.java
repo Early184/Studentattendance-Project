@@ -63,7 +63,7 @@ public class MainFrame extends JFrame {
         ListCreationDialog studentCreation = new ListCreationDialog(this);
         DialogMainPanelStudent dialogPanelStudent = new DialogMainPanelStudent();
         studentCreation.add(dialogPanelStudent);
-        studentCreation.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
         dialogPanelStudent.creationButtonPanel.closeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){

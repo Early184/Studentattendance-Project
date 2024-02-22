@@ -138,7 +138,7 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
             if(key == KeyEvent.VK_DELETE){
                 
                 database.showStudents().remove(showList.getSelectedIndex());
-                database.refreshModel(listModel, database.showStudents());
+                database.refreshModelForStudents(listModel, database.showStudents());
             }
         }
         @Override
@@ -207,7 +207,7 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
                     
                 }
                 
-                database.refreshModel(listModel, database.showStudents());
+                database.refreshModelForStudents(listModel, database.showStudents());
                 break;
             case "close":
                 
