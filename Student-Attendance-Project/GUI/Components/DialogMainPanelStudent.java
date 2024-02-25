@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import Models.Schueler;
 import db.Database;
@@ -92,6 +93,7 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     //CenterPanel for Textfields
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new BorderLayout());
+    centerPanel.setBackground(Color.DARK_GRAY);
     
     //firstNamePanel
     JLabel firstNameLabel = new JLabel("Vorname:      ");
@@ -100,17 +102,21 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     firstName.setPreferredSize(new Dimension(120, 25));
     
     JPanel firstNamePanel = new JPanel();
+    firstNamePanel.setBackground(Color.DARK_GRAY);
     firstNameLabel.setLayout(new FlowLayout());
+    firstNameLabel.setForeground(Color.white);
     firstNamePanel.add(firstNameLabel);
     firstNamePanel.add(firstName);
     //grade.getText();  um String wert zu entziehen
     
     //lastNamePanel
     JLabel lastNameLabel = new JLabel("Nachname:   ");
+    lastNameLabel.setForeground(Color.white);
     lastName = new JTextField();
     lastName.addKeyListener(enterSave);
     lastName.setPreferredSize(new Dimension(120, 25));
     JPanel lastNamePanel = new JPanel();
+    lastNamePanel.setBackground(Color.DARK_GRAY);
     lastNamePanel.setLayout(new FlowLayout());
     lastNamePanel.add(lastNameLabel);
     lastNamePanel.add(lastName);
@@ -127,6 +133,7 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
     }
         JPanel listHolderPanel = new JPanel();
     showList = new JList<String>(listModel);
+    
     showList.addKeyListener(new KeyListener() {
         @Override
         public void keyReleased(KeyEvent e){
@@ -147,15 +154,18 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
         }
 
     });
- 
+    showList.setBackground(Color.BLACK);
+    showList.setForeground(Color.WHITE);
     showList.setPreferredSize(new Dimension(400,350));
-    showList.setBackground(Color.white);
+    showList.setBorder(new EmptyBorder(10,10,10,10));
+    
    
     showList.setVisible(true);
     listHolderPanel.add(showList);
     listHolderPanel.setPreferredSize(new Dimension(400, 390));
     
     listHolderPanel.setVisible(true);
+    listHolderPanel.setBackground(Color.DARK_GRAY);
     add(listHolderPanel, BorderLayout.SOUTH);
 
     setVisible(true);

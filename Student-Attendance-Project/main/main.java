@@ -1,8 +1,5 @@
 package main;
 
-import java.awt.BorderLayout;
-
-import GUI.GUIManager;
 import GUI.Components.MainFrame;
 
 

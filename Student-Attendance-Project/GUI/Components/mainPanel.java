@@ -1,8 +1,6 @@
 package GUI.Components;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-
 import javax.swing.JPanel;
 
 
@@ -11,7 +9,7 @@ public class mainPanel extends JPanel{
     private MainFrame frame;
     public mainPanel(MainFrame frame) {
         this.frame = frame;
-        setBackground(Color.BLACK);
+        
         setLayout(new BorderLayout());
 
         TitleNamePanel title = new TitleNamePanel("Hauptmenü");

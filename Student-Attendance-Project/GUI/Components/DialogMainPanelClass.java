@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import Models.ClassList;
 import Models.Schueler;
@@ -49,12 +50,15 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
         //CenterPanel for Textfields
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
+        centerPanel.setBackground(Color.DARK_GRAY);
         
         //gradePanel
         gradeLabel = new JLabel("Jahrgang:      ");
+        gradeLabel.setForeground(Color.white);
         grade = new JTextField();
         grade.setPreferredSize(new Dimension(120, 25));
         JPanel gradePanel = new JPanel();
+        gradePanel.setBackground(Color.darkGray);
         gradeLabel.setLayout(new FlowLayout());
         gradePanel.add(gradeLabel);
         gradePanel.add(grade);
@@ -62,10 +66,12 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
         
         //specializationPanel
         specLabel = new JLabel("Fachbereich: ");
+        specLabel.setForeground(Color.white);
         specialization = new JTextField();
         specialization.setPreferredSize(new Dimension(120, 25));
         JPanel specPanel = new JPanel();
         specPanel.setLayout(new FlowLayout());
+        specPanel.setBackground(Color.darkGray);
         specPanel.add(specLabel);
         specPanel.add(specialization);
         //Hier das selbe
@@ -84,11 +90,13 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
         mainListHolderPanel.setPreferredSize(new Dimension(400, 390));
 
         JPanel studentListHolderPanel = new JPanel();
-        studentListHolderPanel.setBackground(Color.black);
+        studentListHolderPanel.setBackground(Color.DARK_GRAY);
+        
         studentListHolderPanel.setPreferredSize(new Dimension(300, 0));
 
         JPanel selectedStudents = new JPanel();
-        selectedStudents.setBackground(Color.gray);
+        selectedStudents.setBackground(Color.DARK_GRAY);
+        
         selectedStudents.setPreferredSize(new Dimension(300, 0));
 
         mainListHolderPanel.setLayout(new BorderLayout());
@@ -118,6 +126,11 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
         };
 
         listOfStudents = new JList<String>(listModelStudents);
+        listOfStudents.setForeground(Color.white);
+        listOfStudents.setBackground(Color.black);
+        listOfStudents.setPreferredSize(new Dimension(200,300));
+        listOfStudents.setPreferredSize(new Dimension(200,300));
+        listOfStudents.setBorder(new EmptyBorder(10,10,10,10));
         return listOfStudents;
     }
     public JList<String> createClassList(){
@@ -127,6 +140,10 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
             listModelClass.addElement(Schueler.getVorname() + " " + Schueler.getNachname());
         }
         classList = new JList<String>(listModelClass);
+        classList.setForeground(Color.white);
+        classList.setBackground(Color.black);
+        classList.setPreferredSize(new Dimension(200,300));
+        classList.setBorder(new EmptyBorder(10,10,10,10));
         return classList;
     }
     public void addStudentToClass(){

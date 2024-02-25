@@ -14,7 +14,7 @@ public class ClassListPanel extends JPanel {
         this.database = Database.getInstance();
         JPanel holderPanel = new JPanel();
         holderPanel.setPreferredSize(new Dimension(400, 400));
-        holderPanel.setBackground(Color.gray);
+        holderPanel.setBackground(Color.DARK_GRAY);
         holderPanel.add(database.createJListForClasses());
         setLayout(new BorderLayout());
         setBackground(Color.white);

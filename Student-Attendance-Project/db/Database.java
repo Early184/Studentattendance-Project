@@ -7,11 +7,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
-import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import Models.ClassList;
 import Models.Schueler;
@@ -25,7 +23,7 @@ public class Database {
     private ArrayList<ClassList> classListsArray = new ArrayList<ClassList>();
     private JList<String> listOfClasses;
     private String studentFile = "Student-Attendance-Project/db/Students.csv";
-    private String classesFile = "Student-Attendance-Project/db/ListOfStudents.csv";
+    private String classesFile = "Student-Attendance-Project/db/ListOfClasses.csv";
     private DefaultListModel<String> listModelOfClasses;
     private Database(){
 
@@ -193,8 +191,10 @@ public class Database {
         }
         listOfClasses = new JList<>(listModelOfClasses);
         
-        listOfClasses.setBackground(Color.white);
-        listOfClasses.setPreferredSize(new Dimension(200,300));
+        listOfClasses.setBackground(Color.BLACK);
+        listOfClasses.setForeground(Color.WHITE);
+        listOfClasses.setPreferredSize(new Dimension(300,400));
+        listOfClasses.setBorder(new EmptyBorder(10,10,10,10));
 
         
 

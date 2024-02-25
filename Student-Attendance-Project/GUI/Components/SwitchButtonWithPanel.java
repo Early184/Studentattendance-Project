@@ -2,8 +2,7 @@ package GUI.Components;
 
 
 import java.awt.BorderLayout;
-
-
+import java.awt.Color;
 import java.awt.Image;
 
 
@@ -48,7 +47,7 @@ public class SwitchButtonWithPanel extends JPanel {
         //int y = (getHeight() - switchButton.getHeight()) /2;
         
        
-        
+        setBackground(Color.DARK_GRAY);
         add(switchButton);
         //switchButton.setLocation(x, y);
     }
