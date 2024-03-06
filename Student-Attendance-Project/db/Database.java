@@ -25,6 +25,7 @@ public class Database {
     private String studentFile = "Student-Attendance-Project/db/Students.csv";
     private String classesFile = "Student-Attendance-Project/db/ListOfClasses.csv";
     private DefaultListModel<String> listModelOfClasses;
+    public ArrayList<Schueler> classArrayWrite;
     private Database(){
 
     }
@@ -124,7 +125,8 @@ public class Database {
                     
                 }
                 
-                classListsArray.add(new ClassList(grade, spec, klassenArrayCreation));
+                classListsArray.add(new ClassList(grade, spec, classArrayForImport));
+                classArrayForImport = new ArrayList<Schueler>();
             }
             readerListOfClasses.close();
         }catch(IOException e){
@@ -134,19 +136,21 @@ public class Database {
     public void writeListOfClasses(){
         
         try{
-            FileWriter writer = new FileWriter("ListOfClasses.csv");
+            FileWriter writer = new FileWriter(classesFile);
             for(ClassList classList : classListsArray){
-                ArrayList<Schueler> classArray = classList.getClassArray();
+                classArrayWrite = classList.getClassArray();
                 writer.write(classList.getGrade() + ";"+ classList.getSpecialization() + ";");
-                for (Schueler schueler : classArray){
+                for (Schueler schueler : classArrayWrite){
                     writer.write(schueler.getVorname() +";" +schueler.getNachname() + ";");
                 }
                 writer.write("\n");
+                
             }
             writer.close();
         }catch(IOException e){
             
         }
+        
     }
     public ArrayList<Schueler> showStudents(){
         return schuelerArray;

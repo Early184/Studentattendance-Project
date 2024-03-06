@@ -10,6 +10,9 @@ import db.Database;
 
 public class MainFrame extends JFrame {
     private Database database;
+    public ListCreationDialog studentListCr;
+    public DialogMainPanelClass dialogPanelClass;
+    public mainPanel mainPanel;
     public MainFrame() {
         this.database = Database.getInstance();
         database.readStudents();
@@ -19,7 +22,7 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        mainPanel mainPanel = new mainPanel(this);
+        mainPanel = new mainPanel(this);
         add(mainPanel);
         setVisible(true);
     }
@@ -47,8 +50,8 @@ public class MainFrame extends JFrame {
 
     }
     public void createListDialog(){
-        ListCreationDialog studentListCr = new ListCreationDialog(this);
-        DialogMainPanelClass dialogPanelClass = new DialogMainPanelClass();
+        studentListCr = new ListCreationDialog(this);
+        dialogPanelClass = new DialogMainPanelClass();
         studentListCr.add(dialogPanelClass);
         
         studentListCr.setVisible(true);
@@ -56,6 +59,7 @@ public class MainFrame extends JFrame {
         //Saving functions here
         //dispose function for list model
     }
+    
     public void createStudentDialog(){
         ListCreationDialog studentCreation = new ListCreationDialog(this);
         DialogMainPanelStudent dialogPanelStudent = new DialogMainPanelStudent();

@@ -23,5 +23,17 @@ public class Schueler {
 	public void setNachname(String Nachname) {
 		this.nachname = Nachname;
 	}
+	public boolean equals(Object o){
+		if(o == null){
+			return false;
+		}
+		if(o instanceof Schueler){
+			Schueler schueler = (Schueler) o;
+			if(vorname.equals(schueler.vorname)  && nachname.equals(schueler.nachname) ){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 }

@@ -27,13 +27,17 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
     public JTextField grade;
     public JTextField specialization;
     private Database database;
-    private DefaultListModel<String> listModelStudents, listModelClass;
-    private JList<String> listOfStudents, classList;
+    public DefaultListModel<String> listModelStudents, listModelClass;
+    JList<String> listOfStudents;
+    JList<String> classList;
     private JLabel gradeLabel, specLabel;
+    CreationButtonPanel creationButtonPanel;
+    SwitchButtonWithPanel switchPanel;
+    
     public DialogMainPanelClass(){
         this.database = Database.getInstance();
         //Top panel no extra class
-        CreationButtonPanel creationButtonPanel = new CreationButtonPanel("save1");
+        creationButtonPanel = new CreationButtonPanel("save1");
         creationButtonPanel.saveButton.addActionListener(this);
         
         TitleNamePanel titleCreateList = new TitleNamePanel("Liste erstellen");
@@ -106,7 +110,7 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
         selectedStudents.add(createClassList());
         
         //Button with Icon
-        SwitchButtonWithPanel switchPanel = new SwitchButtonWithPanel();
+        switchPanel = new SwitchButtonWithPanel();
         switchPanel.switchButton.addActionListener(this);
 
         mainListHolderPanel.add(switchPanel, BorderLayout.CENTER);
@@ -170,6 +174,20 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
         database.refreshModelForStudents(listModelClass, database.showClassArray());
         database.refreshModelForStudents(listModelStudents, database.showStudents());
     }
+    public void fillChosenClassForEdit(ClassList classList){
+        for(Schueler Schueler : classList.getClassArray()){
+            
+            listModelClass.addElement(Schueler.getVorname() + " " + Schueler.getNachname());
+            
+        }
+        database.showStudents().removeIf(schueler -> classList.getClassArray().contains(schueler));
+        database.refreshModelForStudents(listModelStudents, database.showStudents());
+        database.refreshModelForStudents(listModelClass, classList.getClassArray());
+        
+        
+    }
+    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String userSwitchStudent = e.getActionCommand();
@@ -192,6 +210,7 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
             case "save1" :
                 ClassList classList = new ClassList(grade.getText(), specialization.getText(), database.showClassArray());
                 database.getClassListsArray().add(classList);
+                database.getListModelOfClasses().clear();
                 database.writeListOfClasses();
                 clearListsAfterSafe();
                 grade.setText("");
