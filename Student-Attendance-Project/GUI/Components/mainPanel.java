@@ -5,9 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 
-import Models.ClassList;
+import Models.Schueler;
 import db.Database;
 
 
@@ -17,6 +18,7 @@ public class mainPanel extends JPanel implements ActionListener{
     private Database database;
     public ClassListPanel classListPanel;
     private EditClassDialog editClassDialog;
+    private AttendancePanel attendancePanel;
     public mainPanel(MainFrame frameCon) {
         this.frame = frameCon;
         this.database = Database.getInstance();
@@ -44,8 +46,23 @@ public class mainPanel extends JPanel implements ActionListener{
 
     switch(userChoice){
         case "use": 
-            System.out.println("bla");
-            //popupWindow with several methods etc.
+           
+           
+            if(classListPanel.JListOfClasses.getSelectedIndex() != -1){
+                ArrayList<Schueler> schuelerarray = new ArrayList<Schueler>(database.getClassListsArray().get(classListPanel.JListOfClasses.getSelectedIndex()).getClassArray());
+                DefaultListModel<String> absentStudentModel = new DefaultListModel<String>();
+                for(Schueler schueler : schuelerarray){
+                    absentStudentModel.addElement(schueler.toString());
+                }
+                attendancePanel = new AttendancePanel(absentStudentModel, schuelerarray);
+                System.out.println("blabla");
+                
+                
+                
+               
+                
+                
+            }
             ;break;
         case "new":
             frame.listOrStudent();
@@ -72,8 +89,6 @@ public class mainPanel extends JPanel implements ActionListener{
             
             ;break;
         case "delete":
-            //spotlight on list to delete, then open JOptionPane for commit
-            System.out.println(database.getClassListsArray());
             database.getClassListsArray().remove(classListPanel.JListOfClasses.getSelectedIndex());
             database.writeListOfClasses();
             database.refreshModelForClassLists(database.getListModelOfClasses(),database.getClassListsArray());

@@ -36,7 +36,7 @@ public class MainFrame extends JFrame {
         if(answer == 0){
             // method for creating list
             // visibility manager for creating list
-            createListDialog();
+            createClassDialog();
             
 
         }
@@ -49,7 +49,7 @@ public class MainFrame extends JFrame {
         }
 
     }
-    public void createListDialog(){
+    public void createClassDialog(){
         studentListCr = new ListCreationDialog(this);
         dialogPanelClass = new DialogMainPanelClass();
         studentListCr.add(dialogPanelClass);
@@ -58,6 +58,13 @@ public class MainFrame extends JFrame {
         database.showClassArray().clear();
         //Saving functions here
         //dispose function for list model
+
+        dialogPanelClass.creationButtonPanel.closeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                studentListCr.dispose();
+            }
+        });
     }
     
     public void createStudentDialog(){

@@ -2,13 +2,10 @@ package GUI.Components;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+
 
 import Models.ClassList;
 import Models.Schueler;
@@ -39,15 +36,18 @@ public class EditClassDialog extends JPanel implements ActionListener {
         
     }
     public void showStudentsInLists(){
-        
-        //ClassList chosenList = database.getClassListsArray().get(frame.mainPanel.classListPanel.JListOfClasses.getSelectedIndex());
-        classPanel.fillChosenClassForEdit(database.getClassListsArray().get(frame.mainPanel.classListPanel.JListOfClasses.getSelectedIndex()));
-        classPanel.grade.setText(database.getClassListsArray().get(frame.mainPanel.classListPanel.JListOfClasses.getSelectedIndex()).getGrade());
-        classPanel.specialization.setText(database.getClassListsArray().get(frame.mainPanel.classListPanel.JListOfClasses.getSelectedIndex()).getSpecialization());
-        for(Schueler schueler : database.getClassListsArray().get(frame.mainPanel.classListPanel.JListOfClasses.getSelectedIndex()).getClassArray()){
-            database.showClassArray().add(schueler);
+        int selectedIndex = frame.mainPanel.classListPanel.JListOfClasses.getSelectedIndex();
+        if (selectedIndex != -1) {
+            ClassList chosenList = database.getClassListsArray().get(selectedIndex);
+            classPanel.fillChosenClassForEdit(chosenList);
+            classPanel.grade.setText(chosenList.getGrade());
+            classPanel.specialization.setText(chosenList.getSpecialization());
+            List<Schueler> classArray = chosenList.getClassArray();
+            
+            database.showClassArray().clear();
+            
+            database.showClassArray().addAll(classArray);
         }
-       
         
     }
     
@@ -73,17 +73,23 @@ public class EditClassDialog extends JPanel implements ActionListener {
                 break;
             case "save2" :
                 ClassList classList = new ClassList(classPanel.grade.getText(), classPanel.specialization.getText(), database.showClassArray());
-                database.getClassListsArray().add(classList);
                 database.getClassListsArray().remove(frame.mainPanel.classListPanel.JListOfClasses.getSelectedIndex());
+                database.getClassListsArray().add(classList);
+                
+                
                 for(Schueler Schueler : database.showClassArray()){
                     database.addStudentToStudentArray(Schueler);
                 };
-                database.writeListOfClasses();
-                dialog.dispose();
+                
                 classList.setGrade(classPanel.grade.getText());
                 classList.setSpecialization(classPanel.specialization.getText());
-                database.refreshModelForClassLists(database.getListModelOfClasses(), database.getClassListsArray());
+                database.writeListOfClasses();
+                dialog.dispose();
+                
+                
                 break;
+            case "close" : 
+                dialog.dispose();
             default:
                 break;
             }

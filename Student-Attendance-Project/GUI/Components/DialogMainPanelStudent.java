@@ -36,6 +36,8 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
 
     creationButtonPanel.deleteButton.addActionListener(this);
     creationButtonPanel.deleteButton.setVisible(true);
+
+    
    
         
     TitleNamePanel titleCreateList = new TitleNamePanel("Studenten anlegen");
@@ -219,9 +221,7 @@ public class DialogMainPanelStudent extends JPanel implements ActionListener{
                 
                 database.refreshModelForStudents(listModel, database.showStudents());
                 break;
-            case "close":
-                
-                break;
+            
         }
     }
     

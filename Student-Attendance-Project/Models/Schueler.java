@@ -35,5 +35,8 @@ public class Schueler {
 		}
 		return false;
 	}
+	public String toString(){
+		return vorname + " " + nachname;
+	}
 	
 }

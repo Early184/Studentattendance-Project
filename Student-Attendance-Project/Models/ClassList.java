@@ -9,7 +9,7 @@ public class ClassList {
     public ClassList(String gradeCon, String specCon, ArrayList<Schueler> classCon){
         this.grade = gradeCon;
         this.specialization = specCon;
-        this.classArray = classCon;
+        this.classArray = new ArrayList<>(classCon);
     }
     public ArrayList<Schueler> getClassArray() {
         return classArray;

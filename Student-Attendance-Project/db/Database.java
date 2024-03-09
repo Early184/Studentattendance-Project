@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.border.EmptyBorder;
@@ -19,13 +21,28 @@ public class Database {
     
     private ArrayList<Schueler> schuelerArray = new ArrayList<Schueler>();
     private ArrayList<Schueler> klassenArrayCreation = new ArrayList<Schueler>();
-    private ArrayList<Schueler> classArrayForImport = new ArrayList<Schueler>();
+
     private ArrayList<ClassList> classListsArray = new ArrayList<ClassList>();
     private JList<String> listOfClasses;
     private String studentFile = "Student-Attendance-Project/db/Students.csv";
     private String classesFile = "Student-Attendance-Project/db/ListOfClasses.csv";
     private DefaultListModel<String> listModelOfClasses;
     public ArrayList<Schueler> classArrayWrite;
+    private int dailyCounter = 0; 
+    
+    public int addToDailyCounter(int additonOfHours){
+        this.dailyCounter += additonOfHours;
+        return dailyCounter;
+    }
+    public int getDailyCounter() {
+        return dailyCounter;
+    }
+    public void setDailyCounter(int dailyCounter) {
+        this.dailyCounter = dailyCounter;
+    }
+    public void setDailyCounterNull (){
+        this.dailyCounter = 0;
+    }
     private Database(){
 
     }
@@ -110,27 +127,26 @@ public class Database {
     }
     public void readListOfClasses(){
         String line = "";
-        try{
+        try {
             BufferedReader readerListOfClasses = new BufferedReader(new FileReader(classesFile));
-            while((line = readerListOfClasses.readLine()) != null){
+            while ((line = readerListOfClasses.readLine()) != null) {
                 String[] splittedLine = line.split(";");
                 String grade = splittedLine[0];
                 String spec = splittedLine[1];
+                ArrayList<Schueler> classArray = new ArrayList<>();
                 int index = 2;
-                while(index < splittedLine.length){
+                while (index < splittedLine.length) {
                     String vorname = splittedLine[index];
-                    String nachname = splittedLine[index +1];
-                    classArrayForImport.add(new Schueler(vorname, nachname));
+                    String nachname = splittedLine[index + 1];
+                    classArray.add(new Schueler(vorname, nachname));
                     index += 2;
-                    
                 }
                 
-                classListsArray.add(new ClassList(grade, spec, classArrayForImport));
-                classArrayForImport = new ArrayList<Schueler>();
+                classListsArray.add(new ClassList(grade, spec, classArray));
             }
             readerListOfClasses.close();
-        }catch(IOException e){
-            System.err.println("Fehler beim lesen");
+        } catch(IOException e) {
+            System.err.println("Fehler beim Lesen");
         }
     }
     public void writeListOfClasses(){
@@ -138,9 +154,10 @@ public class Database {
         try{
             FileWriter writer = new FileWriter(classesFile);
             for(ClassList classList : classListsArray){
-                classArrayWrite = classList.getClassArray();
+                //classArrayWrite = classList.getClassArray();
+                ArrayList<Schueler> classArrayForWrite = new ArrayList<>(classList.getClassArray());
                 writer.write(classList.getGrade() + ";"+ classList.getSpecialization() + ";");
-                for (Schueler schueler : classArrayWrite){
+                for (Schueler schueler : classArrayForWrite){
                     writer.write(schueler.getVorname() +";" +schueler.getNachname() + ";");
                 }
                 writer.write("\n");

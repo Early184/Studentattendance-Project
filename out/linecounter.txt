@@ -1,0 +1,80 @@
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2024-03-10 00:20:05
+count workspace : c:\Users\elias\Desktop\ProjectGit\Studentattendance-Project
+total files : 57
+total code lines : 1441
+total comment lines : 56
+total blank lines : 437
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |            .md|              2|              0|              0|   0.14|
+   |           .iml|             11|              0|              0|   0.76|
+   |           .xml|             20|              0|              0|    1.4|
+   |               |              3|              0|              0|   0.21|
+   |          .java|           1356|             56|            437|     94|
+   |     .stackdump|             40|              0|              0|    2.8|
+   |           .csv|              9|              0|              0|   0.62|
+   -------------------------------------------------------------------------
+.idea\.gitignore, code is 3, comment is 0, blank is 0.
+.idea\misc.xml, code is 6, comment is 0, blank is 0.
+.idea\modules.xml, code is 8, comment is 0, blank is 0.
+.idea\vcs.xml, code is 6, comment is 0, blank is 0.
+bash.exe.stackdump, code is 40, comment is 0, blank is 0.
+out\production\Studentattendance-Project\db\Classes.csv, code is 0, comment is 0, blank is 0.
+out\production\Studentattendance-Project\db\Database.class, it is a binary file.
+out\production\Studentattendance-Project\db\ListOfClasses.csv, code is 0, comment is 0, blank is 0.
+out\production\Studentattendance-Project\db\Students.csv, code is 1, comment is 0, blank is 0.
+out\production\Studentattendance-Project\GUI\Components\ButtonPanel.class, it is a binary file.
+out\production\Studentattendance-Project\GUI\Components\ClassListPanel.class, it is a binary file.
+out\production\Studentattendance-Project\GUI\Components\CreationButtonPanel.class, it is a binary file.
+out\production\Studentattendance-Project\GUI\Components\DialogListFields.class, it is a binary file.
+out\production\Studentattendance-Project\GUI\Components\DialogMainPanelClass.class, it is a binary file.
+out\production\Studentattendance-Project\GUI\Components\DialogMainPanelStudent$1.class, it is a binary file.
+out\production\Studentattendance-Project\GUI\Components\DialogMainPanelStudent$2.class, it is a binary file.
+out\production\Studentattendance-Project\GUI\Components\DialogMainPanelStudent.class, it is a binary file.
+out\production\Studentattendance-Project\GUI\Components\ListCreationDialog.class, it is a binary file.
+out\production\Studentattendance-Project\GUI\Components\MainFrame$1.class, it is a binary file.
+out\production\Studentattendance-Project\GUI\Components\MainFrame$2.class, it is a binary file.
+out\production\Studentattendance-Project\GUI\Components\MainFrame.class, it is a binary file.
+out\production\Studentattendance-Project\GUI\Components\mainPanel.class, it is a binary file.
+out\production\Studentattendance-Project\GUI\Components\TitleNamePanel.class, it is a binary file.
+out\production\Studentattendance-Project\GUI\Fonts.class, it is a binary file.
+out\production\Studentattendance-Project\GUI\GUIManager.class, it is a binary file.
+out\production\Studentattendance-Project\main\main.class, it is a binary file.
+out\production\Studentattendance-Project\Models\Schueler.class, it is a binary file.
+out\production\Studentattendance-Project\Models\Schuelerliste.class, it is a binary file.
+README.md, code is 2, comment is 0, blank is 0.
+Student-Attendance-Project\Controller\Controller.java, code is 55, comment is 1, blank is 11.
+Student-Attendance-Project\db\Database.java, code is 184, comment is 1, blank is 42.
+Student-Attendance-Project\db\ListOfClasses.csv, code is 7, comment is 0, blank is 0.
+Student-Attendance-Project\db\Students.csv, code is 1, comment is 0, blank is 0.
+Student-Attendance-Project\GUI\Components\AttendancePanel.java, code is 251, comment is 8, blank is 70.
+Student-Attendance-Project\GUI\Components\ButtonPanel.java, code is 41, comment is 0, blank is 21.
+Student-Attendance-Project\GUI\Components\ClassListPanel.java, code is 23, comment is 0, blank is 19.
+Student-Attendance-Project\GUI\Components\CreationButtonPanel.java, code is 34, comment is 0, blank is 14.
+Student-Attendance-Project\GUI\Components\DialogMainPanelClass.java, code is 165, comment is 16, blank is 45.
+Student-Attendance-Project\GUI\Components\DialogMainPanelStudent.java, code is 160, comment is 12, blank is 56.
+Student-Attendance-Project\GUI\Components\EditClassDialog.java, code is 73, comment is 3, blank is 22.
+Student-Attendance-Project\GUI\Components\ListCreationDialog.java, code is 12, comment is 0, blank is 8.
+Student-Attendance-Project\GUI\Components\ListPanelOfMainWindow.java, code is 20, comment is 3, blank is 11.
+Student-Attendance-Project\GUI\Components\MainFrame.java, code is 68, comment is 6, blank is 19.
+Student-Attendance-Project\GUI\Components\mainPanel.java, code is 70, comment is 1, blank is 29.
+Student-Attendance-Project\GUI\Components\SwitchButtonWithPanel.java, code is 55, comment is 4, blank is 31.
+Student-Attendance-Project\GUI\Components\TitleNamePanel.java, code is 15, comment is 0, blank is 3.
+Student-Attendance-Project\GUI\Fonts.java, code is 7, comment is 0, blank is 2.
+Student-Attendance-Project\GUI\GUIManager.java, code is 5, comment is 0, blank is 7.
+Student-Attendance-Project\GUI\Images\ButtonHovered.png, it is a binary file.
+Student-Attendance-Project\GUI\Images\ButtonPressed.png, it is a binary file.
+Student-Attendance-Project\GUI\Images\ButtonSwitch.png, it is a binary file.
+Student-Attendance-Project\main\main.java, code is 7, comment is 0, blank is 6.
+Student-Attendance-Project\Models\ClassAttendance.java, code is 25, comment is 0, blank is 6.
+Student-Attendance-Project\Models\ClassList.java, code is 30, comment is 0, blank is 2.
+Student-Attendance-Project\Models\Schueler.java, code is 36, comment is 0, blank is 6.
+Student-Attendance-Project\Models\Schuelerliste.java, code is 20, comment is 1, blank is 7.
+Studentattendance-Project.iml, code is 11, comment is 0, blank is 0.
+===============================================================================

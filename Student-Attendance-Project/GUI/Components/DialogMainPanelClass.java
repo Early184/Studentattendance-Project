@@ -7,17 +7,14 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
 
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
 import Models.ClassList;
 import Models.Schueler;
 import db.Database;
@@ -155,15 +152,14 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
         String[] studentName = listOfStudents.getSelectedValue().split(" ");
         database.addStudentToClassArray(new Schueler(studentName[0], studentName[1]));
         database.showStudents().remove(listOfStudents.getSelectedIndex());
-        //listModelStudents.remove(listOfStudents.getSelectedIndex());
+        
     }
     //funktioniert noch nicht
     public void returnStudentToList(){
         String[] studentName = classList.getSelectedValue().split(" ");
         database.addStudentToStudentArray(new Schueler(studentName[0],studentName[1]));
-        //database.deleteStudentFromClass(classList.getSelectedIndex());
         database.showClassArray().remove(classList.getSelectedIndex());
-        //classList.remove(listOfStudents.getSelectedIndex());
+      
     }
     public void clearListsAfterSafe(){
         for(Schueler schueler : database.showClassArray()){
@@ -175,16 +171,18 @@ public class DialogMainPanelClass extends JPanel implements ActionListener{
         database.refreshModelForStudents(listModelStudents, database.showStudents());
     }
     public void fillChosenClassForEdit(ClassList classList){
-        for(Schueler Schueler : classList.getClassArray()){
-            
-            listModelClass.addElement(Schueler.getVorname() + " " + Schueler.getNachname());
-            
+        listModelClass.clear(); 
+
+    for (Schueler schueler : classList.getClassArray()) {
+        listModelClass.addElement(schueler.getVorname() + " " + schueler.getNachname());
+        
+        if (database.showStudents().contains(schueler)) {
+            database.showStudents().remove(schueler);
         }
-        database.showStudents().removeIf(schueler -> classList.getClassArray().contains(schueler));
-        database.refreshModelForStudents(listModelStudents, database.showStudents());
-        database.refreshModelForStudents(listModelClass, classList.getClassArray());
-        
-        
+    }
+
+    
+    database.refreshModelForStudents(listModelStudents, database.showStudents());
     }
     
 
