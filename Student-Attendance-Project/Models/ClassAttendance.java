@@ -6,6 +6,11 @@ public class ClassAttendance {
     private ArrayList<Schueler> present;
     private ArrayList<Schueler> absent;
     private int hours;
+    public ClassAttendance(){
+        present = new ArrayList<Schueler>();
+        absent = new ArrayList<Schueler>();
+        int hours = 0;
+    }
     
     public ArrayList<Schueler> getPresent() {
         return present;

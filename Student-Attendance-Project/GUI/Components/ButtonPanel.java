@@ -51,7 +51,7 @@ public class ButtonPanel extends JPanel{
         add(newButton);
         add(editButton);
         add(deleteButton);
-        setLayout(new FlowLayout(1,200,0));
+        setLayout(new FlowLayout(1,100,0));
     }
 
     

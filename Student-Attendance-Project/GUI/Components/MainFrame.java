@@ -12,17 +12,17 @@ public class MainFrame extends JFrame {
     private Database database;
     public ListCreationDialog studentListCr;
     public DialogMainPanelClass dialogPanelClass;
-    public mainPanel mainPanel;
+    public MainFramePanel mainPanel;
     public MainFrame() {
         this.database = Database.getInstance();
         database.readStudents();
         setTitle("Attendance-Check");
-        setSize(1200, 800);
+        setSize(800, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
 
-        mainPanel = new mainPanel(this);
+        mainPanel = new MainFramePanel(this);
         add(mainPanel);
         setVisible(true);
     }

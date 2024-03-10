@@ -15,6 +15,7 @@ import Models.ClassAttendance;
 import Models.ClassList;
 import Models.Schueler;
 import db.Database;
+import main.main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,7 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class AttendancePanel extends JDialog implements ActionListener{
+public class AttendanceWindow extends JDialog implements ActionListener{
     private JButton exportButton, closeButton;
     private JPanel titleAndButtonHolderPanel, buttonPanel, centerPanel, centerRightPanel, centerLeftPanel, southPanel;
     private JLabel titleLabel, presentLabel, absentLabel, counterLabel;
@@ -38,6 +39,7 @@ public class AttendancePanel extends JDialog implements ActionListener{
     private ClassAttendance classAttendance;
     private Database db;
     private Controller controller;
+    private MainFramePanel mainPanel;
     
    
 
@@ -46,10 +48,15 @@ public class AttendancePanel extends JDialog implements ActionListener{
     }
 
 
-    public AttendancePanel(DefaultListModel<String> listModel, ArrayList<Schueler> selectedClass){
-        this.selectedClass = selectedClass;
+    public AttendanceWindow(MainFramePanel mainPanel ,DefaultListModel<String> listModel, ArrayList<Schueler> selectedClass){
+        
+        
+        this.mainPanel = mainPanel;
+        
         this.db = Database.getInstance();
-        controller = new Controller(this);
+        controller = new Controller(this, mainPanel);
+        this.selectedClass = selectedClass;
+        
 
         setSize(800, 600);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -317,10 +324,11 @@ public class AttendancePanel extends JDialog implements ActionListener{
                 break;
             case "Export" :
                 queryForExports();
+                dispose();
                 
                 
             case "Close" :
-
+                dispose();
                 break;
             default:
                 break;
