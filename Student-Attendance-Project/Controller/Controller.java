@@ -24,7 +24,6 @@ public class Controller {
     private String formattedTime;
     private String formattedDate;
    
-
     public Controller (AttendanceWindow aPanel, MainFramePanel mainPanel){
         this.aPanel = aPanel;
         this.db = Database.getInstance();

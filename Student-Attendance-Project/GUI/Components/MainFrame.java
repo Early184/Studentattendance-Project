@@ -14,6 +14,7 @@ public class MainFrame extends JFrame {
     public DialogMainPanelClass dialogPanelClass;
     public MainFramePanel mainPanel;
     public MainFrame() {
+        
         this.database = Database.getInstance();
         database.readStudents();
         setTitle("Attendance-Check");
@@ -21,7 +22,6 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-
         mainPanel = new MainFramePanel(this);
         add(mainPanel);
         setVisible(true);
@@ -38,7 +38,6 @@ public class MainFrame extends JFrame {
             // visibility manager for creating list
             createClassDialog();
             
-
         }
         else if(answer == 1){
             
@@ -86,8 +85,5 @@ public class MainFrame extends JFrame {
         });
         studentCreation.setVisible(true);
     }
-    
-    
-
     
 }

@@ -38,6 +38,7 @@ public class MainFramePanel extends JPanel implements ActionListener{
         
         classListPanel = new ClassListPanel();
         add(classListPanel,BorderLayout.SOUTH);
+        
         setVisible(true);
     }
     @Override
