@@ -19,9 +19,6 @@ This project is implemented in Vanilla Java, utilizing core Java features withou
 git clone https://github.com/your-username/student-attendance-system.git
 cd student-attendance-system
 
-markdown
-Code kopieren
-
 2. **Compile and run**:
 Download Visual Studio Code
 Open the Repository
