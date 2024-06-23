@@ -1,6 +1,6 @@
 # Student Attendance System
 
-Welcome to the Student Attendance System! This project allows you to manage students and classes, track attendance, and export attendance records to Excel files. This is my first major independent project, and while it has some issues and lacks full validation, the core functionalities are operational.
+This project allows you to manage students and classes, track attendance, and export attendance records to Excel files. This is my first independent project, and while it has some issues and lacks full validation, the core functionalities are operational.
 
 ## Features
 
@@ -15,9 +15,8 @@ This project is implemented in Vanilla Java, utilizing core Java features withou
 
 ## Installation
 
-1. **Clone the repository**:
+1. **Clone the repository**
 git clone https://github.com/Early184/Studentattendance-Project.git
-
 
 2. **Compile and run**:
 Download Visual Studio Code
